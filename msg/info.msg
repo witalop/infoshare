@@ -1,3 +1,5 @@
+Header header
+int32 id
 string vehicle
-string description
 string info
+string details
