@@ -1,0 +1,48 @@
+1 - Crirar um arquivo .msg
+2 - Escrever o Type e o nome da variavel (1 por linha)
+3 - Caso o type seja simples (int8. int32, float32, sting, ...) vc apenas escre o type o nome, caso o type seja uma outra msg criada vc tem que colcoar de qual Package ela veio (o type Header e uma exceçao). Exemplo:
+  Header header
+  string child_frame_id
+  geometry_msgs/PoseWithCovariance pose
+  geometry_msgs/TwistWithCovariance twist
+
+4 - Sao necessarias algumas alteraçoes nos arquivos package.xmle e CMakeLists.txt:
+
+    PACKAGE.XML
+    As seguintes linhas devem estar descomentadas:
+        <build_depend>message_generation</build_depend>
+        <run_depend>message_runtime</run_depend>
+    
+    CMAKELISTS.TXT
+    *Vc deve descomentar e adicionar o que mais for necessario para gerar as msg, geralmente s'o precisa disso:
+        find_package(catkin REQUIRED COMPONENTS
+        roscpp
+        rospy
+        std_msgs
+        message_generation
+        )
+    
+    *Encontre o seguinte bloco:
+        # add_message_files(
+        #   FILES
+        #   Message1.msg
+        #   Message2.msg
+        # )
+        
+    descomente e escreve os seus arquivos .msg abaixo de FILE. Exemplo:
+        add_message_files(
+        FILES
+        Num.msg
+        )
+    
+    *Encrontre o seguinte bloco e descomente:
+        # generate_messages(
+        #   DEPENDENCIES
+        #   std_msgs
+        # )
+        
+5 - Para ter certeza que ta tudo certo digite o comando:
+    
+    rosmsg show [nome do package] [nome da msg]
+    
+    Se aparecer os detalhes da msg ta tudo certo
