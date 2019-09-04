@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import rospy
 import json
-from virosquad.msg import info
+from infoshare.msg import info
 from std_msgs.msg import Int32
 from geometry_msgs.msg import Twist
 
@@ -19,7 +19,7 @@ def gps(content):
     msg.gps.angular.z = content.angular.z
 
 def info_publisher():
-    with open('/home/witalo/catkin_ws/src/virosquad/scripts/info.json') as json_file:
+    with open('/home/ubuntu/catkin_ws/src/infoshare/scripts/info.json') as json_file:
         data = json.load(json_file)
 
     topic = rospy.Publisher('info/'+ str(data['id']), info, queue_size=1)
